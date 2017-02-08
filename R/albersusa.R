@@ -44,7 +44,7 @@ usa_composite <- function(proj=c("longlat", "laea", "lcc", "eqdc", "aeqd")) {
   #               stringsAsFactors=FALSE,
   #               verbose=FALSE)
 
-  us <- readRDS(system.file("extdata/states.rda", package="albersusa"))
+  us <- readRDS(system.file("extdata/states.rds", package="albersusa"))
 
   proj <- match.arg(proj, c("longlat", "laea", "lcc", "eqdc", "aeqd"))
 
