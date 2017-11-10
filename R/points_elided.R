@@ -57,7 +57,8 @@ points_elided <- function(sp){
   # Bring them back together with original projection
   tempdata   <- rbind(sp@data, ak@data, hi@data)
   tempcoords <- rbind(sp@coords, ak@coords, hi@coords)
-  spj <- SpatialPointsDataFrame(tempcoords, tempdata, match.ID = FALSE)
+  spj <- SpatialPointsDataFrame(tempcoords, tempdata, match.ID = FALSE,
+                                proj4string = CRS(sp::proj4string(sp)))
   spj <- sp::spTransform(spj, CRS(orig_proj))
 
   return(spj)
