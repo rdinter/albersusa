@@ -24,11 +24,14 @@ points_elided <- function(sp){
 
   # Elide the points, the key here is to set "bb" to what the original
   #  transformation's bounding box was!
-  ak    <- maptools::elide(ak,
-                           scale=max(apply(ak_bb, 1, diff)) / 2.3,
-                           rotate = -50,
-                           bb = ak_bb) # NEED the bb option here
-  ak    <- maptools::elide(ak, shift = c(-1298669, -3018809)) # bb doesn't matter
+  if (nrow(ak) > 0) {
+    ak    <- maptools::elide(ak,
+                             scale=max(apply(ak_bb, 1, diff)) / 2.3,
+                             rotate = -50,
+                             bb = ak_bb) # NEED the bb option here
+    ak    <- maptools::elide(ak, shift = c(-1298669, -3018809)) # bb doesn't matter
+  }
+
   sp::proj4string(ak) <- sp::proj4string(sp)
 
   hi_bb <- readRDS(system.file("extdata/hawaii_bb.rda", package="albersusa"))
@@ -42,10 +45,13 @@ points_elided <- function(sp){
   hi   <- sp[!is.na(hi_l),]
   sp   <- sp[is.na(hi_l),]
 
-  hi    <- maptools::elide(hi,
-                           rotate = -35,
-                           bb = hi_bb) # NEED the bb option here
-  hi    <- maptools::elide(hi, shift = c(5400000, -1400000)) # bb doesn't matter
+  if (nrow(hi) > 0) {
+    hi    <- maptools::elide(hi,
+                             rotate = -35,
+                             bb = hi_bb) # NEED the bb option here
+    hi    <- maptools::elide(hi, shift = c(5400000, -1400000)) # bb doesn't matter
+  }
+
   sp::proj4string(hi) <- sp::proj4string(sp)
 
   # Bring them back together with original projection
